@@ -29,9 +29,9 @@ export default function productsSectionClient({
     <section className="py-12 bg-white dark:bg-gray-800 dark:text-white">
       <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between text-start border-b border-b-gray-200">
-          <h2 className="text-lg sm:text-2xl md:text-3xl text-gray-400 border-b-2 border-primary flex pb-2 gap-x-2">
+          <h2 className="text-lg sm:text-2xl md:text-3xl text-primary font-bold border-b-2 border-primary flex pb-2 gap-x-2">
             <span>{firstTitle}</span>
-            <span className="text-primary">{secondTitle}</span>
+            <span className="text-secondary">{secondTitle}</span>
           </h2>
           <div className="inline-block pb-2 items-center text-xs md:text-base">
           <Link

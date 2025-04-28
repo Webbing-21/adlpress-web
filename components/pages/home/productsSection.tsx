@@ -12,7 +12,7 @@ import Link from "next/link";
 import React from "react";
 
 
-const productsData: ProductCardProps[] = [
+export const productsData: ProductCardProps[] = [
   {
     id: 1,
     image: "/icons/Z2kicMI3jqtu.png",

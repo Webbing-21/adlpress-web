@@ -64,7 +64,16 @@ export default function Page() {
     <div className="max-w-[95rem] px-4 mx-auto dark:text-white mt-20 space-y-10 mb-10">
       <div className="flex flex-col lg:flex-row gap-4">
         <div className="lg:w-24 order-2 lg:order-1">
-          <div className="flex flex-row items-start lg:flex-col select-none flex-wrap gap-1">
+        </div>
+        <div className="w-full order-1 lg:order-2 flex flex-col items-start h-full">
+          <Image
+            width={1000}
+            height={1000}
+            className="h-full w-full object-contain"
+            src={selectedImage}
+            alt="Selected Product Image"
+          />
+          <div className="flex flex-row items-start mt-4 select-none flex-wrap gap-1">
             {productDetails.images.map((image, index) => (
               <label key={index}>
                 <input
@@ -85,15 +94,6 @@ export default function Page() {
               </label>
             ))}
           </div>
-        </div>
-        <div className="w-full order-1 lg:order-2 flex items-start h-full">
-          <Image
-            width={1000}
-            height={1000}
-            className="h-full w-full object-contain"
-            src={selectedImage}
-            alt="Selected Product Image"
-          />
         </div>
         <div className="w-full order-3">
           <section className="space-y-4 md:space-y-6">
@@ -204,98 +204,16 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="max-w-4xl space-y-10 xl:ms-20">
-        <Table className="border">
-          {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
-          <TableHeader>
-            <TableRow className="bg-primary hover:bg-primary [&>*]:text-black">
-              <TableHead>Status</TableHead>
-              <TableHead>Method</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>12</TableCell>
-              <TableCell>5000</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>12</TableCell>
-              <TableCell>5000</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>12</TableCell>
-              <TableCell>5000</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-        <div className="space-y-4">
-          <h2 className="text-lg font-bold">Supplier Information</h2>
-          <Card className="shadow-none">
-            <CardHeader>
-              <div className="flex justify-between items-center">
-                <div className="flex items-center">
-                  <Image
-                    src={"/icons/settings/user.jpeg"}
-                    className="size-9"
-                    alt="user"
-                    width={40}
-                    height={40}
-                  />
-                  <Button variant={"link"} className="underline text-black">
-                    Digital Market
-                  </Button>
-                </div>
-                <div className="flex items-center mt-2">
-                  {[...Array(5)].map((_, index) => (
-                    <svg
-                      key={index}
-                      className={`block size-3 align-middle ${
-                        index < productDetails.rating
-                          ? "text-yellow-500"
-                          : "text-gray-400"
-                      } sm:size-4`}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-              </div>
-              <div className="flex gap-2 text-gray-500">
-                <span>On-time delivery rate</span>
-                <span>98%</span>
-                <div className="flex gap-2">
-                  <svg
-                    width={24}
-                    height={24}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M14.49 18.79C14.2164 19.2025 13.8449 19.541 13.4087 19.7751C12.9724 20.0092 12.4851 20.1317 11.99 20.1317C11.495 20.1317 11.0076 20.0092 10.5714 19.7751C10.1352 19.541 9.76367 19.2025 9.49002 18.79C5.49002 12.92 5.80002 10.08 5.80002 10.08C5.80002 8.44096 6.45112 6.86905 7.6101 5.71007C8.76907 4.5511 10.341 3.89999 11.98 3.89999C13.6191 3.89999 15.191 4.5511 16.3499 5.71007C17.5089 6.86905 18.16 8.44096 18.16 10.08C18.16 10.08 18.53 12.92 14.49 18.79Z"
-                      stroke="#000D26"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M12 12.07C13.1046 12.07 14 11.1746 14 10.07C14 8.96544 13.1046 8.07001 12 8.07001C10.8954 8.07001 10 8.96544 10 10.07C10 11.1746 10.8954 12.07 12 12.07Z"
-                      stroke="#000D26"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <span>Cairo , Egypt</span>
-                </div>
-              </div>
-            </CardHeader>
-          </Card>
+      <div className="w-full grid md:grid-cols-2 gap-4 xl:ps-20">
+      <div className="space-y-4 w-full">
+          <div>
+            <h2 className="text-lg font-bold">Customers Reviews</h2>
+            <p className="text-primary text-xs">4.7 Product rating</p>
+          </div>
+
+          <ProductRating />
         </div>
-        <div className="space-y-4 max-w-xl">
+        <div className="space-y-4 w-full">
           <h2 className="text-lg font-bold">Supplier Information</h2>
           <div>
             <h3 className="text-sm flex items-center gap-3 font-bold">
@@ -369,20 +287,99 @@ export default function Page() {
             </p>
           </div>
         </div>
-        <div className="space-y-4 max-w-xl">
-          <div>
-            <h2 className="text-lg font-bold">Customers Reviews</h2>
-            <p className="text-primary text-xs">4.7 Product rating</p>
-          </div>
-
-          <ProductRating />
-        </div>
+        
       </div>
       <ProductsSectionClient
-        products={[]}
-        title="Recommended Products"
+        products={productsData}
+        title="Related Products"
         linkAll="/categories/Hardware"
       />
     </div>
   );
 }
+
+
+
+
+const productsData: any[] = [
+  {
+    id: 1,
+    image: "/icons/Z2kicMI3jqtu.png",
+    title: "Smart TV",
+    price: "559$",
+    oldPrice: "300$",
+    rating: 4,
+    category: "Electronics",
+    sale: true,
+  },
+  {
+    id: 2,
+    image: "/icons/image5.png",
+    title: "Comfy Sofa",
+    price: "317$",
+    // oldPrice: "350$",
+    rating: 4,
+    category: "Furniture",
+    sale: true,
+  },
+  {
+    id: 3,
+    image: "/icons/image6.png",
+    title: "Skin Routine",
+    price: "317$",
+    oldPrice: "350$",
+    rating: 4,
+    category: "Cosmetics",
+    sale: true,
+  },
+  {
+    id: 4,
+    image: "/icons/image7.png",
+    title: "Coffee Set",
+    price: "317$",
+    oldPrice: "350$",
+    rating: 4,
+    category: "Appliances",
+    sale: true,
+  },
+  {
+    id: 5,
+    image: "/icons/Z2kicMI3jqtu.png",
+    title: "Smart TV",
+    price: "559$",
+    oldPrice: "300$",
+    rating: 4,
+    category: "Electronics",
+    sale: true,
+  },
+  {
+    id: 6,
+    image: "/icons/image5.png",
+    title: "Comfy Sofa",
+    price: "317$",
+    oldPrice: "350$",
+    rating: 4,
+    category: "Furniture",
+    sale: true,
+  },
+  {
+    id: 7,
+    image: "/icons/image6.png",
+    title: "Skin Routine",
+    price: "317$",
+    oldPrice: "350$",
+    rating: 4,
+    category: "Cosmetics",
+    sale: true,
+  },
+  {
+    id: 8,
+    image: "/icons/image7.png",
+    title: "Coffee Set",
+    price: "317$",
+    oldPrice: "350$",
+    rating: 4,
+    category: "Appliances",
+    sale: true,
+  },
+];

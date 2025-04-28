@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { productsInCartData } from "@/static/data";
+import Link from "next/link";
 import React from "react";
 
 export default function layout({ children }: { children: React.ReactNode }) {
@@ -8,7 +9,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
   const taxes = 50; // ضرائب
 
   const subtotal = productsInCartData?.reduce(
-    (total:any, product:any) => total + product.price * product.quantity,
+    (total: any, product: any) => total + product.price * product.quantity,
     0
   );
   // الحساب الكلي
@@ -38,9 +39,11 @@ export default function layout({ children }: { children: React.ReactNode }) {
             <span>{total}$</span>
           </p>
           {subtotal > 0 && (
-            <Button color="primary" className="w-full">
-              <span className="w-full text-center py-10">Check Out</span>
-            </Button>
+            <Link href={"/checkout"}>
+              <Button color="primary" className="w-full">
+                <span className="w-full text-center py-10">Check Out</span>
+              </Button>
+            </Link>
           )}
         </div>
       </div>

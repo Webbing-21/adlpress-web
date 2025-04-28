@@ -1,249 +1,301 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { MapPin } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import Image from "next/image";
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { Button } from "@/components/ui/button"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { Checkbox } from "@/components/ui/checkbox"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+
+const formSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email address" }),
+  phone: z.string().min(11, { message: "Phone number must be at least 11 digits" }),
+  name: z.string().min(2, { message: "Name must be at least 2 characters" }),
+  country: z.string().min(1, { message: "Please select a country" }),
+  city: z.string().min(1, { message: "Please select a city" }),
+  address: z.string().min(5, { message: "Address must be at least 5 characters" }),
+  defaultAddress: z.boolean().optional(),
+  paymentMethod: z.string().min(1, { message: "Please select a payment method" }),
+})
 
 export default function CheckoutForm() {
-  const [paymentMethod, setPaymentMethod] = React.useState("card");
-  const [propertyTypes, setPropertyTypes] = React.useState("Business");
-  const [isReady, setIsReady] = React.useState(false);
-  const [address, setAddress] = React.useState("Cairo, Egypt");
+  const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      phone: "",
+      name: "",
+      country: "Egypt",
+      city: "Cairo",
+      address: "",
+      defaultAddress: false,
+      paymentMethod: "card",
+    },
+  })
+
+  const paymentMethods = [
+    {
+      id: "card",
+      label: "Credit / Debit Card",
+      img: "/icons/payment/card.png",
+    },
+    {
+      id: "fawry",
+      label: "Fawry",
+      img: "/icons/payment/fawry.png",
+    },
+    {
+      id: "instapay",
+      label: "Insta Pay",
+      img: "/icons/payment/instapay.png",
+    },
+    {
+      id: "orange",
+      label: "Orange Money",
+      img: "/icons/payment/orange-money.png",
+    },
+    {
+      id: "vodafone",
+      label: "Vodafone Cash",
+      img: "/icons/payment/vodafone.png",
+    },
+    {
+      id: "etisalat",
+      label: "Etisalat Cash",
+      img: "/icons/payment/etisalat.png",
+    },
+  ]
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true)
+
+    // Simulate API call
+    setTimeout(() => {
+      console.log(values)
+      setIsSubmitting(false)
+      router.push("/checkout/last")
+    }, 1000)
+  }
 
   return (
-    <div className="min-h-screen p-4">
-      <div className="max-w-2xl mx-auto space-y-6">
-        <div className="flex items-center gap-2">
-          <MapPin className="w-6 h-6 -ms-1" />
-          <h2 className="text-xl font-semibold">Shipping Address</h2>
-        </div>
-        <div className="space-y-4">
-          <div className="flex items-center gap-2">
-            <svg
-              width={24}
-              height={24}
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M17 3H7C4.79086 3 3 4.79086 3 7V17C3 19.2091 4.79086 21 7 21H17C19.2091 21 21 19.2091 21 17V7C21 4.79086 19.2091 3 17 3Z"
-                stroke="#121212"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M8.5 12.2101L10.69 14.4001L15.5 9.6001"
-                stroke="#121212"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <h2>Saved Address</h2>
-          </div>
-          <RadioGroup
-            value={address}
-            onValueChange={setAddress}
-            className="space-y-1 ps-2"
-          >
-            {[
-              { id: 1, label: "Cairo, Egypt" },
-              { id: 2, label: "Minya, Egypt" },
-            ].map((method) => (
-              <div key={method.id} className="flex w-full items-center gap-x-4">
-                <MapPin className="size-3" />
-                <Label
-                  className={cn(
-                    "flex items-center w-full justify-between cursor-pointer",
-                    address === method.label && "text-primary"
-                  )}
-                >
-                  <div className="flex items-center gap-2">{method.label}</div>
-                  <RadioGroupItem
-                    value={method.label}
-                    className={cn(
-                      "text-lg border border-gray-300",
-                      paymentMethod === method.label &&
-                        "text-primary border-primary [&>span>svg]:text-xl"
-                    )}
-                  />
-                </Label>
-              </div>
-            ))}
-          </RadioGroup>
-        </div>
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="region">Region</Label>
-            <Select defaultValue="egypt">
-              <SelectTrigger id="region">
-                <SelectValue>
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg">🇪🇬</span>
-                    Egypt
-                  </div>
-                </SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="egypt">
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg">🇪🇬</span>
-                    Egypt
-                  </div>
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+    <div className="max-w-3xl mx-auto p-4">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          {/* Contact Information */}
+          <div>
+            <h1 className="text-3xl fonusert-bold mb-6">Contact</h1>
 
-          <div className="space-y-2">
-            <Label htmlFor="address">Address</Label>
-            <Input
-              id="address"
-              placeholder="Nasr City Floor 3"
-              className="py-[1.40rem]"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="building">Apartment, Building, Floor</Label>
-            <Input
-              id="building"
-              placeholder="Nasr City Floor 3"
-              className="py-[1.40rem]"
-            />
-          </div>
-
-          <RadioGroup
-            value={propertyTypes}
-            onValueChange={setPropertyTypes}
-            className="flex flex-wrap gap-2 select-none"
-          >
-            {["Business", "Factory", "Warehouse", "Residential"].map((type) => (
-              <Label key={type}
-                className={cn(
-                  "flex items-center justify-between p-4 border border-gray-300 rounded-full cursor-pointer",
-                  propertyTypes === type && "border-yellow-500"
+            <div className="space-y-6">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-xl">Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="user@gmail.com" {...field} className="p-4 text-base" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
-              >
-                {type}
-                <RadioGroupItem className="sr-only" value={type} />
-              </Label>
-            ))}
-          </RadioGroup>
-          <p className="flex items-center gap-x-2">
-            <Checkbox />
-            <span className="text-sm">Set as default shipping address</span>
-          </p>
-          <Button
-            onClick={() => setIsReady(true)}
-            className="w-full bg-primary hover:bg-primary text-black font-medium py-6"
-          >
-            Continue to payment
-          </Button>
-        </div>
+              />
 
-        {isReady && (
-          <Card className="p-0 space-y-4 border-none shadow-none">
-            <h2 className="text-xl font-semibold flex items-center gap-2 pt-8 border-t border-gray-200">
-              <Image
-                src="/icons/payment/dolar.png"
-                className="size-5"
-                width={50}
-                height={50}
-                alt="alt"
-              />{" "}
-              Payment Method
-            </h2>
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-xl">Phone number</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Phone number" {...field} className="p-4 text-base" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <RadioGroup
-              value={paymentMethod}
-              onValueChange={setPaymentMethod}
-              className="space-y-2"
-            >
-              {[
-                {
-                  id: "card",
-                  label: "Credit / Debit Card",
-                  img: "/icons/payment/card.png",
-                },
-                {
-                  id: "fawry",
-                  label: "Fawry",
-                  img: "/icons/payment/fawry.png",
-                },
-                {
-                  id: "instapay",
-                  label: "Insta Pay",
-                  img: "/icons/payment/instapay.png",
-                },
-                {
-                  id: "orange",
-                  label: "Orange Money",
-                  img: "/icons/payment/orange-money.png",
-                },
-                {
-                  id: "vodafone",
-                  label: "Vodafone Cash",
-                  img: "/icons/payment/vodafone.png",
-                },
-                {
-                  id: "etisalat",
-                  label: "Etisalat Cash",
-                  img: "/icons/payment/etisalat.png",
-                },
-              ].map((method) => (
-                <div key={method.id} className="flex w-full items-center">
-                  <Image
-                    src={method.img}
-                    className="size-5"
-                    width={50}
-                    height={50}
-                    alt="alt"
-                  />
-                  <Label
-                    className={cn(
-                      "flex items-center w-full justify-between p-4 cursor-pointer",
-                      paymentMethod === method.id && "text-primary"
-                    )}
-                  >
-                    <div className="flex items-center gap-2">
-                      {method.label}
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-xl">Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Name" {...field} className="p-4 text-base" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+
+          <div className="h-px bg-gray-200 my-4"></div>
+
+          {/* Shipping Address */}
+          <div>
+            <h2 className="text-3xl font-bold mb-6">Shipping address</h2>
+
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FormField
+                  control={form.control}
+                  name="country"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-xl">Country</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger className="p-3 text-base">
+                            <SelectValue placeholder="Select a country">
+                              <div className="flex items-center gap-2">
+                                <div className="w-8 h-5 bg-red-600 relative overflow-hidden">
+                                  <div className="absolute inset-0 flex flex-col">
+                                    <div className="h-1/3 bg-red-600"></div>
+                                    <div className="h-1/3 bg-white"></div>
+                                    <div className="h-1/3 bg-black"></div>
+                                  </div>
+                                </div>
+                                <span>Egypt</span>
+                              </div>
+                            </SelectValue>
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="Egypt">
+                            <div className="flex items-center gap-2">
+                              <div className="w-8 h-5 bg-red-600 relative overflow-hidden">
+                                <div className="absolute inset-0 flex flex-col">
+                                  <div className="h-1/3 bg-red-600"></div>
+                                  <div className="h-1/3 bg-white"></div>
+                                  <div className="h-1/3 bg-black"></div>
+                                </div>
+                              </div>
+                              <span>Egypt</span>
+                            </div>
+                          </SelectItem>
+                          <SelectItem value="UAE">UAE</SelectItem>
+                          <SelectItem value="Saudi Arabia">Saudi Arabia</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="city"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-xl">City</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger className="p-3 text-base">
+                            <SelectValue placeholder="Select a city" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="Cairo">Cairo</SelectItem>
+                          <SelectItem value="Alexandria">Alexandria</SelectItem>
+                          <SelectItem value="Giza">Giza</SelectItem>
+                          <SelectItem value="Sharm El Sheikh">Sharm El Sheikh</SelectItem>
+                          <SelectItem value="Luxor">Luxor</SelectItem>
+                          <SelectItem value="Aswan">Aswan</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-xl">Address</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Nasr city" {...field} className="p-4 text-base" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="defaultAddress"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 mt-4">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        className="h-5 w-5 mt-1 border-2 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel className="text-base font-normal">Set as a default shipping address</FormLabel>
                     </div>
-                    <RadioGroupItem
-                      value={method.id}
-                      className={cn(
-                        "text-lg border border-gray-300",
-                        paymentMethod === method.id &&
-                          "text-primary border-primary [&>span>svg]:text-xl"
-                      )}
-                    />
-                  </Label>
-                </div>
-              ))}
-            </RadioGroup>
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
 
-            <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-medium py-6">
-              Pay Now
-            </Button>
-          </Card>
-        )}
-      </div>
+          <div className="h-px bg-gray-200 my-4"></div>
+
+          {/* Payment */}
+          <div>
+            <h2 className="text-3xl font-bold mb-6">Payment</h2>
+
+            <FormField
+              control={form.control}
+              name="paymentMethod"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="space-y-4">
+                      {paymentMethods.map((method) => (
+                        <div key={method.id} className="flex items-center gap-3">
+                          <FormItem className="flex items-center space-x-3 space-y-0">
+                            <FormControl>
+                              <RadioGroupItem value={method.id} id={method.id} className="h-6 w-6" />
+                            </FormControl>
+                            <div className="flex items-center gap-2">
+                              <div className="h-8 w-8 flex items-center justify-center">
+                                <img src={method.img || "/placeholder.svg"} alt={method.label} className="h-6 w-6" />
+                              </div>
+                              <FormLabel className="text-xl font-normal" htmlFor={method.id}>
+                                {method.label}
+                              </FormLabel>
+                            </div>
+                          </FormItem>
+                        </div>
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <Button type="submit" className="w-full py-6 text-lg mt-8" disabled={isSubmitting}>
+            {isSubmitting ? "Processing..." : "Proceed to Checkout"}
+          </Button>
+        </form>
+      </Form>
     </div>
-  );
+  )
 }
