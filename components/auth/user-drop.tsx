@@ -49,19 +49,19 @@ export default function UserDrop({ user, isMobile = false }: UserDropProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56 p-2 rounded-lg">
         <DropdownMenuItem asChild className="py-3 cursor-pointer">
-          <Link href="/orders" className="flex items-center gap-2">
+          <Link href="/cart" className="flex items-center gap-2">
             <ShoppingBag className="h-5 w-5" />
-            <span>Orders</span>
+            <span>cart</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild className="py-3 cursor-pointer">
-          <Link href="/account" className="flex items-center gap-2">
+          <Link href="/account/overview" className="flex items-center gap-2">
             <User className="h-5 w-5" />
             <span>Account</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild className="py-3 cursor-pointer">
-          <Link href="/support" className="flex items-center gap-2">
+          <Link href="/account/support" className="flex items-center gap-2">
             <HelpCircle className="h-5 w-5" />
             <span>Support</span>
           </Link>

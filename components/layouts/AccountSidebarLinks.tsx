@@ -15,13 +15,13 @@ export default function AccountSidebarLinks() {
           Overview
         </LinkApp>
       </SidebarGroup>
-      <SidebarGroup
+      {/* <SidebarGroup
         className={pathname.includes("/account/purchases") ? "active" : ""}
       >
         <LinkApp href="/account/purchases">
           Track Purchases
         </LinkApp>
-      </SidebarGroup>
+      </SidebarGroup> */}
       <SidebarGroup
         className={pathname.includes("/account/support") ? "active" : ""}
       >
@@ -34,13 +34,6 @@ export default function AccountSidebarLinks() {
       >
         <LinkApp href="/account/settings">
           Settings
-        </LinkApp>
-      </SidebarGroup>
-      <SidebarGroup
-        className={pathname.includes("/account/seller") ? "active" : ""}
-      >
-        <LinkApp href="/account/seller">
-          Become a seller
         </LinkApp>
       </SidebarGroup>
     </div>
