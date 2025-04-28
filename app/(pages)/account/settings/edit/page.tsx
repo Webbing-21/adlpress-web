@@ -19,10 +19,14 @@ import {
 import LinkApp from "@/components/global/LinkApp";
 import AlertApp from "@/components/auth/AlertApp";
 
-export default function ProfileSettings() {
+export default function ProfileSettings({
+  params,
+}: {
+  params: Promise<{ lng: string }>;
+}) {
+  const { lng } = use(params);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [image, setImage] = useState<string>("/icons/settings/user.jpeg");
-  const [name, setName] = useState()
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -31,10 +35,6 @@ export default function ProfileSettings() {
       setImage(url);
     }
   };
-
-  const changeName = () => {
-
-  }
 
   return (
     <div className="min-h-screen text-gray-700 p-6 max-w-2xl space-y-8">
@@ -53,7 +53,7 @@ export default function ProfileSettings() {
           />
           <Label
             htmlFor="image-upload"
-            className="bg-primary px-4 py-2 rounded-lg cursor-pointer hover:bg-amber-500 transition-colors"
+            className="bg-primary text-white px-4 py-2 rounded-lg cursor-pointer transition-colors"
           >
             Change image
           </Label>
@@ -61,7 +61,7 @@ export default function ProfileSettings() {
       </div>
 
       <div className="space-y-6">
-        <form className="space-y-2" >
+        <div className="space-y-2">
           <Label htmlFor="full-name" className="text-xl">
             Full Name
           </Label>
@@ -71,7 +71,7 @@ export default function ProfileSettings() {
               Save
             </Button>
           </div>
-        </form>
+        </div>
 
         <div className="space-y-2">
           <Label htmlFor="email" className="text-xl">
