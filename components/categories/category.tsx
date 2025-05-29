@@ -10,7 +10,7 @@ export interface categoryCardProps {
 
 const CategoryCard: React.FC<categoryCardProps> = ({category, isHome }) => {
   return (
-    <Link href={`/categories/${category?.name}/`}>
+    <Link href={`/categories/${category?.documentId}/`}>
       <article className="relative ">
         <div className="flex items-start justify-between">
           <div className={`w-full ${isHome ? "p-4 md:p-8" : "p-4"} flex flex-col justify-center items-center`}>
@@ -19,12 +19,12 @@ const CategoryCard: React.FC<categoryCardProps> = ({category, isHome }) => {
                 height={200}
                 width={200}
                 className="object-center object-contain size-24"
-                src={category?.image}
+                src={category?.image?.url}
                 alt={category?.name}
               />
             </div>
             <div className="text-center">
-              <h2 className="text-base text-gray-600 mb-2">category {category?.name}</h2>
+              <h2 className="text-base text-gray-600 mb-2">{category?.name}</h2>
             </div>
           </div>
         </div>

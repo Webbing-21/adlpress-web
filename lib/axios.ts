@@ -7,14 +7,6 @@ const AxiosApp = axios.create({
 
 AxiosApp.interceptors.request.use(
     (config) => {
-        // if (typeof window !== "undefined") {
-        //     const token = localStorage?.getItem('token') as string;
-        //     const accessToken = JSON.parse(token);
-        //     if (accessToken) {
-        //         if (config.headers) config.headers.token = accessToken;
-        //     }
-        //     return config;
-        // }
         return config
     },
     (error) => {

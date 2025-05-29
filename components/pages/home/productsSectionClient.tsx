@@ -1,3 +1,4 @@
+import { Product } from "@/app/(pages)/products/[id]/page";
 import IconLeftAndRight from "@/components/global/IconLeftAndRight";
 import ProductCard from "@/components/products/product";
 import {
@@ -14,7 +15,7 @@ interface ProductSectionProps {
   title: string;
   linkAll: string;
   isCarousel?: boolean;
-  products: any
+  products: Product[]
 }
 
 export default function productsSectionClient({
@@ -45,17 +46,17 @@ export default function productsSectionClient({
         </div>
         {isCarousel ? <Carousel className="mt-8">
           <CarouselContent>
-            {products.map((product:any, index:any) => (
+            {products.map((product:Product, index:any) => (
               <CarouselItem key={index} className="basis-1/2 lg:basis-1/4">
-                <ProductCard {...product} />
+                <ProductCard isCarousel={isCarousel} product={product} />
               </CarouselItem>
             ))}
           </CarouselContent>
         </Carousel> : 
         <div className="mt-10 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {products.map((item:any) => (
-            <div key={item.id}>
-              <ProductCard isCarousel={isCarousel} {...item}/>
+          {products.map((item:Product) => (
+            <div key={item.id}> 
+              <ProductCard isCarousel={isCarousel} product={item}/>
             </div>
             ))}
         </div>

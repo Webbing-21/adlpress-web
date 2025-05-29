@@ -1,5 +1,4 @@
 import { ProductType } from "@/@types/api/product";
-import { ProductCardProps } from "@/components/products/product";
 import ProductAccountCart from "@/components/products/product-account-cart";
 
 const productsData: ProductType[] = [

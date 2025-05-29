@@ -1,47 +1,32 @@
+"use client"
 import { CategoriesType } from "@/@types/api/categories";
 import CategoryCard from "@/components/categories/category";
-import { categoryCardProps } from "@/components/categories/CategoryCardForHeader";
 import IconLeftAndRight from "@/components/global/IconLeftAndRight";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import AxiosServer from "@/lib/axiosServer";
+import useFetch from "@/hooks/use-fetch";
 import { splitArrayInHalf, splitTitleInHalf } from "@/utils/splitArrayInHalf";
 import Link from "next/link";
 import React from "react";
-
-const categoriesData: categoryCardProps[] = [
-  { id: 1, title: "Mobile", image: "/icons/category/1.png" },
-  { id: 2, title: "Electronics", image: "/icons/category/2.png" },
-  { id: 3, title: "Watches", image: "/icons/category/3.png" },
-  { id: 4, title: "Hardware", image: "/icons/category/4.png" },
-  { id: 5, title: "Lights", image: "/icons/category/5.png" },
-  { id: 6, title: "Tools", image: "/icons/category/6.png" },
-  { id: 7, title: "Appliances", image: "/icons/category/7.png" },
-  { id: 8, title: "Sports", image: "/icons/category/8.png" },
-  { id: 9, title: "Furniture", image: "/icons/category/9.png" },
-  { id: 10, title: "Fashion", image: "/icons/category/10.png" },
-  { id: 11, title: "Cosmetics", image: "/icons/category/11.png" },
-  { id: 12, title: "Accessories", image: "/icons/category/12.png" },
-  { id: 13, title: "Gifts", image: "/icons/category/13.png" },
-  { id: 14, title: "Decor", image: "/icons/category/14.png" },
-];
-
 interface CategoriesSectionProps {
   title: string;
   linkAll: string;
   isHome?: boolean
 }
 
-export default async function CategoriesSection({
+export default function CategoriesSection({
   title,
   linkAll,
   isHome = false
 }: CategoriesSectionProps) {
 
-  const [firstHalf, secondHalf] = splitArrayInHalf(categoriesData as any);
+  const {data: categoriesData} =useFetch(`/child-lasts?populate=*`);
+
+
+  const [firstHalf, secondHalf] = splitArrayInHalf(categoriesData?.data as any);
   const [firstTitle, secondTitle] = splitTitleInHalf(title);
   
   return (
@@ -68,7 +53,7 @@ export default async function CategoriesSection({
           <Carousel className="mt-8">
             <CarouselContent>
               {firstHalf.map((category: CategoriesType) => (
-                <CarouselItem key={category.id} className="basis-1/7">
+                <CarouselItem key={category.documentId} className="basis-1/7">
                   <CategoryCard category={category} isHome={isHome} />
                 </CarouselItem>
               ))}
@@ -77,7 +62,7 @@ export default async function CategoriesSection({
           <Carousel>
               <CarouselContent>
                 {secondHalf.map((category: CategoriesType) => (
-                  <CarouselItem key={category.id} className="basis-1/7">
+                  <CarouselItem key={category.documentId} className="basis-1/7">
                     <CategoryCard category={category} isHome={isHome}/>
                   </CarouselItem>
                 ))}
@@ -85,8 +70,8 @@ export default async function CategoriesSection({
           </Carousel>
         </> : <>
         <div className="mt-10 flex flex-wrap justify-center">
-          {categoriesData.map((category: any) => (
-            <div key={category.id} className="basis-1/6">
+          {categoriesData?.data?.map((category: any) => (
+            <div key={category.documentId} className="basis-1/6">
               <CategoryCard category={category}/>
             </div>
             ))}
@@ -96,3 +81,4 @@ export default async function CategoriesSection({
     </section>
   );
 }
+

@@ -47,14 +47,14 @@ export default function UserDrop({ user, isMobile = false }: UserDropProps) {
           </div>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56 p-2 rounded-lg">
+      <DropdownMenuContent align="end" className="w-56 p-2 rounded-lg relative z-[93494]">
         <DropdownMenuItem asChild className="py-3 cursor-pointer">
           <Link href="/cart" className="flex items-center gap-2">
             <ShoppingBag className="h-5 w-5" />
             <span>cart</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild className="py-3 cursor-pointer">
+        {/* <DropdownMenuItem asChild className="py-3 cursor-pointer">
           <Link href="/account/overview" className="flex items-center gap-2">
             <User className="h-5 w-5" />
             <span>Account</span>
@@ -65,7 +65,7 @@ export default function UserDrop({ user, isMobile = false }: UserDropProps) {
             <HelpCircle className="h-5 w-5" />
             <span>Support</span>
           </Link>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={handleSignOut}

@@ -1,4 +1,4 @@
-import { authOptions } from "@/utils/authOptions";
+import { auth } from "@/utils/authOptions";
 import axios from "axios";
 import { getServerSession } from "next-auth";
 
@@ -10,7 +10,7 @@ const AxiosServer = axios.create({
 // Axios Interceptor: Request Method
 AxiosServer.interceptors.request.use(
     async(config) => {
-        const session = await getServerSession(authOptions);
+        const session = await getServerSession(auth);
         // @ts-ignore
         const accessToken = session?.accessToken;
         config.headers.Authorization = "Bearer " + accessToken

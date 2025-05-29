@@ -1,5 +1,4 @@
 import { ProductType } from "@/@types/api/product";
-import { ProductCardProps } from "@/components/products/product";
 import ProductAccountOrder from "@/components/products/product-account-order";
 
 export interface ProductOrderType  extends ProductType {

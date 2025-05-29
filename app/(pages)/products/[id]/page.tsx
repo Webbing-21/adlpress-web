@@ -9,105 +9,130 @@ import {
 } from "@/components/ui/select";
 import { HeartIcon } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
-
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Card, CardHeader } from "@/components/ui/card";
+import React, { useEffect, useState } from "react";
 import ProductRating from "@/components/products/ProductRating";
 import ProductsSectionClient from "@/components/pages/home/productsSectionClient";
+import useFetch from "@/hooks/use-fetch";
+import { notFound, useParams } from "next/navigation";
+import { Image as ImageType } from "@/components/layouts/category-header";
+import LoadingPage from "./loading";
 
-export interface ProductDetailsProps {
+type ChildLast = {
   id: number;
-  image: string;
-  images: {
-    url: string;
-    alt: string;
-  }[];
-  title: string;
-  price: string;
-  oldPrice?: string;
-  category: string;
-  rating: number;
-  sale?: boolean;
-  isCarousel?: boolean;
-}
+  documentId: string;
+  name: string;
+  createdAt: string; // يمكن تغييره إلى Date إذا كنت ستحوله عند الاستخدام
+  updatedAt: string;
+  publishedAt: string;
+};
 
-const productDetails: ProductDetailsProps = {
-  id: 1,
-  image: "/icons/products/1.png",
-  title: "Laptop v23",
-  price: "300$",
-  oldPrice: "559$",
-  rating: 3,
-  category: "Electronics",
-  sale: true,
-  images: [
-    { url: "/icons/products/1.png", alt: "Image 1" },
-    { url: "/icons/products/2.png", alt: "Image 2" },
-    { url: "/icons/products/3.png", alt: "Image 3" },
-  ],
+export type Product = {
+  id: number;
+  documentId: string;
+  name: string;
+  description: string;
+  price: number;
+  discount: number;
+  count: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  reviews: any[]; // يمكنك تعديل النوع حسب شكل الـ review إذا كان معروف
+  child_lasts: ChildLast[];
+  image: ImageType;
+  images: ImageType[];
 };
 
 export default function Page() {
-  const [selectedImage, setSelectedImage] = useState(
-    productDetails.images[0].url
+  const { id } = useParams();
+  const { data, loading, error } = useFetch(
+    `/products/${id}?populate=*`,
+    id as any
   );
+  let productDetails: Product = data?.data;
+  let products: Product[] = data?.products;
+  const [selectedImage, setSelectedImage] = useState("");
+
+  useEffect(() => {
+    setSelectedImage(productDetails?.image?.url);
+  }, [productDetails]);
+
+  if (loading) {
+    return <LoadingPage />;
+  }
+
+  if (error) {
+    return notFound();
+  }
 
   return (
     <div className="max-w-[95rem] px-4 mx-auto dark:text-white mt-20 space-y-10 mb-10">
       <div className="flex flex-col lg:flex-row gap-4">
-        <div className="lg:w-24 order-2 lg:order-1">
-        </div>
+        <div className="lg:w-24 order-2 lg:order-1"></div>
         <div className="w-full order-1 lg:order-2 flex flex-col items-start h-full">
           <Image
             width={1000}
             height={1000}
-            className="h-full w-full object-contain"
-            src={selectedImage}
+            className="h-96 w-full  object-contain"
+            src={selectedImage || ""}
             alt="Selected Product Image"
-          />
-          <div className="flex flex-row items-start mt-4 select-none flex-wrap gap-1">
-            {productDetails.images.map((image, index) => (
-              <label key={index}>
-                <input
-                  type="radio"
-                  name="image-selector"
-                  className="peer sr-only"
-                  onChange={() => setSelectedImage(image.url)}
+          />      
+          <div className="flex flex-row items-start mt-4 select-none flex-wrap gap-4    ">
+            <label>
+              <input
+                type="radio"
+                name="image-selector"
+                className="peer sr-only"
+                onChange={() => setSelectedImage(productDetails?.image.url)}
+              />
+              <p className="cursor-pointer peer-checked:ring-2 peer-checked:ring-primary size-16">
+                <Image
+                  width={70}
+                  height={70}
+                  className="h-full w-full object-cover"
+                  src={productDetails?.image.url}
+                  alt={productDetails?.image.alternativeText}
                 />
-                <p className="cursor-pointer peer-checked:ring-2 peer-checked:ring-primary size-16">
-                  <Image
-                    width={70}
-                    height={70}
-                    className="h-full w-full object-cover"
-                    src={image.url}
-                    alt={image.alt}
+              </p>
+            </label>
+            {productDetails?.images?.length > 0 &&
+              productDetails?.images.map((image, index) => (
+                <label key={index}>
+                  <input
+                    type="radio"
+                    name="image-selector"
+                    className="peer sr-only"
+                    onChange={() => setSelectedImage(image.url)}
                   />
-                </p>
-              </label>
-            ))}
+                  <p className="cursor-pointer peer-checked:ring-2 peer-checked:ring-primary size-16">
+                    <Image
+                      width={70}
+                      height={70}
+                      className="h-full w-full object-cover"
+                      src={image.url}
+                      alt={image.alternativeText}
+                    />
+                  </p>
+                </label>
+              ))}
           </div>
         </div>
         <div className="w-full order-3">
           <section className="space-y-4 md:space-y-6">
             <div>
-              <h5 className="text-gray-500">{productDetails.category}</h5>
+              <h5 className="text-gray-500">
+                {productDetails?.child_lasts?.length > 0 &&
+                  productDetails?.child_lasts[0].name}
+              </h5>
               <h1 className="text-xl sm:text-2xl font-bold md:text-3xl">
-                {productDetails.title}
+                {productDetails.name}
               </h1>
               <div className="flex items-center mt-2">
                 {[...Array(5)].map((_, index) => (
                   <svg
                     key={index}
                     className={`block size-3 align-middle ${
-                      index < productDetails.rating
+                      index < productDetails.reviews?.length
                         ? "text-yellow-500"
                         : "text-gray-400"
                     } sm:size-4`}
@@ -123,11 +148,15 @@ export default function Page() {
 
             <div className="flex gap-x-2 items-start">
               <span className="text-primary text-lg md:text-2xl font-bold">
-                {productDetails.price}
+                {productDetails.discount > 0
+                  ? productDetails.price -
+                    (productDetails.price * productDetails.discount) / 100
+                  : productDetails.price}
+                $
               </span>
-              {productDetails.oldPrice && (
+              {productDetails.discount && (
                 <span className="text-gray-400 line-through font-bold">
-                  {productDetails.oldPrice}
+                  {productDetails.price}$
                 </span>
               )}
             </div>
@@ -136,15 +165,13 @@ export default function Page() {
               <h2 className="text-lg md:text-xl font-bold">
                 Available Quantity
               </h2>
-              <p className="text-gray-400">576 products</p>
+              <p className="text-gray-400">{productDetails.count} products</p>
             </div>
 
             <div className="space-y-2">
-              <h2 className="text-lg md:text-xl font-bold">
-                Model Description
-              </h2>
+              <h2 className="text-lg md:text-xl font-bold">Description</h2>
               <p className="text-gray-400 w-2/5">
-                Laptop v23 15.6 inch 9th Gen Core i7, NVIDIA GTX 1650 Graphics
+                {productDetails.description}
               </p>
             </div>
 
@@ -205,7 +232,7 @@ export default function Page() {
       </div>
 
       <div className="w-full grid md:grid-cols-2 gap-4 xl:ps-20">
-      <div className="space-y-4 w-full">
+        <div className="space-y-4 w-full">
           <div>
             <h2 className="text-lg font-bold">Customers Reviews</h2>
             <p className="text-primary text-xs">4.7 Product rating</p>
@@ -287,99 +314,12 @@ export default function Page() {
             </p>
           </div>
         </div>
-        
       </div>
       <ProductsSectionClient
-        products={productsData}
+        products={products}
         title="Related Products"
         linkAll="/categories/Hardware"
       />
     </div>
   );
 }
-
-
-
-
-const productsData: any[] = [
-  {
-    id: 1,
-    image: "/icons/Z2kicMI3jqtu.png",
-    title: "Smart TV",
-    price: "559$",
-    oldPrice: "300$",
-    rating: 4,
-    category: "Electronics",
-    sale: true,
-  },
-  {
-    id: 2,
-    image: "/icons/image5.png",
-    title: "Comfy Sofa",
-    price: "317$",
-    // oldPrice: "350$",
-    rating: 4,
-    category: "Furniture",
-    sale: true,
-  },
-  {
-    id: 3,
-    image: "/icons/image6.png",
-    title: "Skin Routine",
-    price: "317$",
-    oldPrice: "350$",
-    rating: 4,
-    category: "Cosmetics",
-    sale: true,
-  },
-  {
-    id: 4,
-    image: "/icons/image7.png",
-    title: "Coffee Set",
-    price: "317$",
-    oldPrice: "350$",
-    rating: 4,
-    category: "Appliances",
-    sale: true,
-  },
-  {
-    id: 5,
-    image: "/icons/Z2kicMI3jqtu.png",
-    title: "Smart TV",
-    price: "559$",
-    oldPrice: "300$",
-    rating: 4,
-    category: "Electronics",
-    sale: true,
-  },
-  {
-    id: 6,
-    image: "/icons/image5.png",
-    title: "Comfy Sofa",
-    price: "317$",
-    oldPrice: "350$",
-    rating: 4,
-    category: "Furniture",
-    sale: true,
-  },
-  {
-    id: 7,
-    image: "/icons/image6.png",
-    title: "Skin Routine",
-    price: "317$",
-    oldPrice: "350$",
-    rating: 4,
-    category: "Cosmetics",
-    sale: true,
-  },
-  {
-    id: 8,
-    image: "/icons/image7.png",
-    title: "Coffee Set",
-    price: "317$",
-    oldPrice: "350$",
-    rating: 4,
-    category: "Appliances",
-    sale: true,
-  },
-];

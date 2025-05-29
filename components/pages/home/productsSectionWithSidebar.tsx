@@ -1,5 +1,6 @@
+"use client";
 import { ProductType } from "@/@types/api/product";
-import ProductCard from "@/components/products/product";
+import { Product } from "@/app/(pages)/products/[id]/page";
 import ProductPrimary from "@/components/products/product-primary";
 import {
   Carousel,
@@ -112,14 +113,14 @@ const productsData: ProductType[] = [
 
 interface ProductSectionProps {
   title?: string;
-  products?: ProductType[];
+  products?: Product[];
   linkAll: string;
   isCarousel?: boolean;
 }
 
 export default function ProductsSectionWithSidebar({
   title,
-  products = productsData,
+  products,
   linkAll,
   isCarousel = true,
 }: ProductSectionProps) {
@@ -160,7 +161,7 @@ export default function ProductsSectionWithSidebar({
         {isCarousel ? (
           <Carousel className="mt-8">
             <CarouselContent>
-              {products.map((product, index) => (
+              {products?.map((product, index) => (
                 <CarouselItem
                   key={index + Math.random()}
                   className="basis-1/2 lg:basis-1/4"
@@ -171,12 +172,9 @@ export default function ProductsSectionWithSidebar({
             </CarouselContent>
           </Carousel>
         ) : (
-          <div className="mt-10 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 4xl:grid-cols-6 gap-4">
+          products && <div className="mt-10 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 4xl:grid-cols-6 gap-4">
             {[
-              ...products,
-              ...products.reverse(),
-              ...products.reverse(),
-              ...products.reverse(),
+              ...products
             ].map((item) => (
               <div key={item.id + Math.random()}>
                 <ProductPrimary product={item} />

@@ -18,49 +18,56 @@ import IconLeftAndRight from "../global/IconLeftAndRight"
 import img1 from '/public/icons/category/3.png'
 import CategoryCardForHeader from "../categories/CategoryCardForHeader"
 import { usePathname } from "next/navigation"
+import useFetch from "@/hooks/use-fetch"
+
+export interface Image {
+  alternativeText: string
+  url: string
+}
+
+interface CategoryType {
+  documentId: string;
+  name: string;
+  image: Image;
+}
 
 export function CategoryHeader() {
   const pathname = usePathname();
+  const [selectParent, setSelectParent] = React.useState<CategoryType[]>([]);
+  const [selectId, setSelectId] = React.useState<string>();
     const isHome = pathname.split("/").length === 1 || pathname === "/";
-    const categories = [
-      { id: 2, name: "New in", url: "new-in" },
-      { id: 3, name: "Sale", url: "sale" },
-      { id: 4, name: "Electronics", url: "electronics" },
-      { id: 5, name: "Screens", url: "screens" },
-      { id: 6, name: "Speakers", url: "speakers" },
-      { id: 7, name: "Covers", url: "covers" },
-      { id: 8, name: "Cables", url: "cables" },
-      { id: 9, name: "Chargers", url: "chargers" },
-      { id: 10, name: "Others", url: "others" }
-    ]
+    const {data: categoryParent} = useFetch(`category-sections?populate=*`)
+    const {data: categoriesHeader} = useFetch(`/child-ones/${selectId}?populate[child_lasts][populate]=*`, selectId as any)
+    // const {data} = useFetch(`/products?filters[child_lasts][child_one][category_section][documentId][$eq]=dat9vgriyft9y8awckiok0f8&populate[child_lasts][populate][child_one][populate]=*`)
     
     return (
       <NavigationMenu className={`z-50 relative hidden bg-primary text-secondary lg:block w-full min-w-full`} dir="ltr">
         <NavigationMenuList className="flex justify-start">
           <NavigationMenuItem className="text-secondary">
+            {/* {JSON.stringify(data)} */}
             <NavigationMenuTrigger className={` ${'!text-secondary'}`}>All Categories</NavigationMenuTrigger>
             <NavigationMenuContent className="flex gap-4 p-4 md:w-[95vw]">
               <div className="w-[300px]">
-                {categories.map((item, index) => <Button key={index} variant={'ghost'} className="w-full flex justify-between h-14 rounded-none">
+                {categoryParent?.data?.map((item:any, index:number) => <Button onClick={() => setSelectParent(item.child_ones)} onMouseEnter={() => setSelectParent(item.child_ones)} key={index} variant={'ghost'} className="w-full flex justify-between h-14 rounded-none">
                   <span className="">{item.name}</span>
                   <IconLeftAndRight className="!size-7 text-gray-400"/>
                 </Button>)}
               </div>
               <div className="w-[300px]">
-                {[...Array(3)].map((e, index) => <Button key={index} variant={'ghost'} className="w-full flex justify-between h-14 rounded-none">
-                  <span>Male</span>
+                {selectParent?.map((e, index) => <Button onClick={() => setSelectId(e.documentId)} onMouseEnter={() => setSelectId(e.documentId)} key={index} variant={'ghost'} className="w-full flex justify-between h-14 rounded-none">
+                  <span>{e.name}</span>
                   {/* <IconLeftAndRight className="!size-7 text-gray-400"/> */}
                 </Button>)}
               </div>
               <div className="flex flex-wrap gap-x-5">
-                {categories.map((item, index) =>  
-                    <CategoryCardForHeader key={index} id={index} image={img1} title={item.name} isHome={isHome}/>
+                {categoriesHeader?.data?.child_lasts?.map((item: CategoryType, index:number) =>  
+                    <CategoryCardForHeader key={index} documentId={item.documentId} image={item.image} name={item.name} isHome={isHome}/>
                 )}
               </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          {categories && categories.length > 0 && categories.map(item => <NavigationMenuItem key={item.id}>
-            <LinkApp href={`/categories/${item.url}`} >
+          {categoryParent?.data && categoryParent?.data?.slice(0, 8)?.map((item: CategoryType) => <NavigationMenuItem key={item.documentId}>
+            <LinkApp href={`/categories-parent/${item.documentId}`} >
               <NavigationMenuLink className={`${navigationMenuTriggerStyle()} ${'!text-secondary'}`}>
                 {item.name}
               </NavigationMenuLink>

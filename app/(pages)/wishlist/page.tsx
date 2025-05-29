@@ -1,7 +1,6 @@
 "use client";
 import { ProductType } from "@/@types/api/product";
 import AlertCart from "@/components/cart/AlertCart";
-import { ProductCardProps } from "@/components/products/product";
 import ProductPrimary from "@/components/products/product-primary";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
@@ -133,7 +132,7 @@ export default function Page() {
       <div>
         {productInWishlist.length > 0 ? (
           <div className="mt-10 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 4xl:grid-cols-7 gap-4">
-            {[
+            {/* {[
               ...productInWishlist,
               ...productInWishlist.reverse(),
               ...productInWishlist.reverse(),
@@ -142,7 +141,7 @@ export default function Page() {
               <div key={item.id + Math.random()}>
                 <ProductPrimary product={item} />
               </div>
-            ))}
+            ))} */}
           </div>
         ) : (
           <section className="bg-white dark:bg-gray-900 ">

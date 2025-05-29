@@ -1,109 +1,28 @@
-import { ProductType } from "@/@types/api/product";
+"use client"
+import { Product } from "@/app/(pages)/products/[id]/page";
 import IconLeftAndRight from "@/components/global/IconLeftAndRight";
-import ProductCard, { ProductCardProps } from "@/components/products/product";
+import ProductCard from "@/components/products/product";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import AxiosServer from "@/lib/axiosServer";
 import { splitTitleInHalf } from "@/utils/splitArrayInHalf";
 import Link from "next/link";
 import React from "react";
 
 
-export const productsData: ProductCardProps[] = [
-  {
-    id: 1,
-    image: "/icons/Z2kicMI3jqtu.png",
-    title: "Smart TV",
-    price: "559$",
-    oldPrice: "300$",
-    rating: 4,
-    category: "Electronics",
-    sale: true,
-  },
-  {
-    id: 2,
-    image: "/icons/image5.png",
-    title: "Comfy Sofa",
-    price: "317$",
-    // oldPrice: "350$",
-    rating: 4,
-    category: "Furniture",
-    sale: true,
-  },
-  {
-    id: 3,
-    image: "/icons/image6.png",
-    title: "Skin Routine",
-    price: "317$",
-    oldPrice: "350$",
-    rating: 4,
-    category: "Cosmetics",
-    sale: true,
-  },
-  {
-    id: 4,
-    image: "/icons/image7.png",
-    title: "Coffee Set",
-    price: "317$",
-    oldPrice: "350$",
-    rating: 4,
-    category: "Appliances",
-    sale: true,
-  },
-  {
-    id: 5,
-    image: "/icons/Z2kicMI3jqtu.png",
-    title: "Smart TV",
-    price: "559$",
-    oldPrice: "300$",
-    rating: 4,
-    category: "Electronics",
-    sale: true,
-  },
-  {
-    id: 6,
-    image: "/icons/image5.png",
-    title: "Comfy Sofa",
-    price: "317$",
-    oldPrice: "350$",
-    rating: 4,
-    category: "Furniture",
-    sale: true,
-  },
-  {
-    id: 7,
-    image: "/icons/image6.png",
-    title: "Skin Routine",
-    price: "317$",
-    oldPrice: "350$",
-    rating: 4,
-    category: "Cosmetics",
-    sale: true,
-  },
-  {
-    id: 8,
-    image: "/icons/image7.png",
-    title: "Coffee Set",
-    price: "317$",
-    oldPrice: "350$",
-    rating: 4,
-    category: "Appliances",
-    sale: true,
-  },
-];
-
 interface ProductSectionProps {
   title: string;
   linkAll: string;
   isCarousel?: boolean;
+  products: Product[];
 }
 
-export default async function ProductSection({
+export default function ProductSection({
   title,
   linkAll,
+  products,
   isCarousel = true,
 }: ProductSectionProps) {
   const [firstTitle, secondTitle] = splitTitleInHalf(title);
@@ -128,17 +47,17 @@ export default async function ProductSection({
         </div>
         {isCarousel ? <Carousel className="mt-8">
           <CarouselContent>
-            {productsData && productsData?.length > 0 && productsData?.map((product:any, index:any) => (
+            {products && products?.length > 0 && products?.map((product:any, index:any) => (
               <CarouselItem key={index} className="basis-1/2 lg:basis-1/4">
-                <ProductCard {...product} />
+                <ProductCard product={product}/>
               </CarouselItem>
             ))}
           </CarouselContent>
         </Carousel> : 
         <div className="mt-10 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {productsData && productsData?.length > 0 && productsData?.map((item:any) => (
+          {products && products?.length > 0 && products?.map((item:any) => (
             <div key={item.id}>
-              <ProductCard isCarousel={isCarousel} {...item}/>
+              <ProductCard isCarousel={isCarousel} product={item}/>
             </div>
             ))}
         </div>
