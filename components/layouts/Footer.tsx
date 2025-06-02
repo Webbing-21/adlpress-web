@@ -3,8 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
-import { ArrowRight, Facebook, Instagram, Twitter, MessageCircle } from "lucide-react"
-import Link from "next/link"
+import { ArrowRight, Facebook, Instagram, Twitter } from "lucide-react"import Link from "next/link"
 import Image from "next/image"
 
 export default function Footer() {
@@ -93,57 +92,71 @@ export default function Footer() {
           </div>
 
           <div className="flex gap-4">
-            <Link
-              href="#"
-              className="bg-[#FFCF33] border border-[#2A3990] rounded-full p-2 hover:bg-[#2A3990] hover:text-[#FFCF33] transition-colors"
-              aria-label="Facebook"
-            >
-              <Facebook className="h-5 w-5 text-[#2A3990] hover:text-[#FFCF33]" />
-            </Link>
-            <Link
-              href="#"
-              className="bg-[#FFCF33] border border-[#2A3990] rounded-full p-2 hover:bg-[#2A3990] hover:text-[#FFCF33] transition-colors"
-              aria-label="Instagram"
-            >
-              <Instagram className="h-5 w-5 text-[#2A3990] hover:text-[#FFCF33]" />
-            </Link>
-            <Link
-              href="#"
-              className="bg-[#FFCF33] border border-[#2A3990] rounded-full p-2 hover:bg-[#2A3990] hover:text-[#FFCF33] transition-colors"
-              aria-label="TikTok"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-5 w-5 text-[#2A3990] hover:text-[#FFCF33]"
-              >
-                <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" />
-                <path d="M15 8a4 4 0 0 0 0 8V8Z" />
-                <path d="M9 12V4h6" />
-              </svg>
-            </Link>
-            <Link
-              href="#"
-              className="bg-[#FFCF33] border border-[#2A3990] rounded-full p-2 hover:bg-[#2A3990] hover:text-[#FFCF33] transition-colors"
-              aria-label="Twitter"
-            >
-              <Twitter className="h-5 w-5 text-[#2A3990] hover:text-[#FFCF33]" />
-            </Link>
-            <Link
-              href="#"
-              className="bg-[#FFCF33] border border-[#2A3990] rounded-full p-2 hover:bg-[#2A3990] hover:text-[#FFCF33] transition-colors"
-              aria-label="WhatsApp"
-            >
-              <MessageCircle className="h-5 w-5 text-[#2A3990] hover:text-[#FFCF33]" />
-            </Link>
-          </div>
+  <Link
+    href="https://www.facebook.com/adlpress.sa"
+    className="bg-[#FFCF33] border border-[#2A3990] rounded-full p-2 hover:bg-[#2A3990] hover:text-[#FFCF33] transition-colors"
+    aria-label="Facebook"
+  >
+    <Facebook className="h-5 w-5 text-[#2A3990] hover:text-[#FFCF33]" />
+  </Link>
+  <Link
+    href="https://www.instagram.com/adlpress/"
+    className="bg-[#FFCF33] border border-[#2A3990] rounded-full p-2 hover:bg-[#2A3990] hover:text-[#FFCF33] transition-colors"
+    aria-label="Instagram"
+  >
+    <Instagram className="h-5 w-5 text-[#2A3990] hover:text-[#FFCF33]" />
+  </Link>
+  <Link
+    href="https://www.tiktok.com/@adlpress"
+    className="bg-[#FFCF33] border border-[#2A3990] rounded-full p-2 hover:bg-[#2A3990] hover:text-[#FFCF33] transition-colors"
+    aria-label="TikTok"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-5 w-5 text-[#2A3990] hover:text-[#FFCF33]"
+    >
+      <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" />
+      <path d="M15 8a4 4 0 0 0 0 8V8Z" />
+      <path d="M9 12V4h6" />
+    </svg>
+  </Link>
+  <Link
+    href="https://x.com/adlpresss"
+    className="bg-[#FFCF33] border border-[#2A3990] rounded-full p-2 hover:bg-[#2A3990] hover:text-[#FFCF33] transition-colors"
+    aria-label="Twitter"
+  >
+    <Twitter className="h-5 w-5 text-[#2A3990] hover:text-[#FFCF33]" />
+  </Link>
+  <Link
+    href="https://www.youtube.com/@adlpress"
+    className="bg-[#FFCF33] border border-[#2A3990] rounded-full p-2 hover:bg-[#2A3990] hover:text-[#FFCF33] transition-colors"
+    aria-label="YouTube"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-5 w-5 text-[#2A3990] hover:text-[#FFCF33]"
+    >
+      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
+      <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
+    </svg>
+  </Link>
+</div>
         </div>
 
         {/* Copyright and Privacy */}
