@@ -13,14 +13,14 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 const formSchema = z.object({
-  email: z.string().email({ message: "Please enter a valid email address" }),
-  phone: z.string().min(11, { message: "Phone number must be at least 11 digits" }),
-  name: z.string().min(2, { message: "Name must be at least 2 characters" }),
-  country: z.string().min(1, { message: "Please select a country" }),
-  city: z.string().min(1, { message: "Please select a city" }),
-  address: z.string().min(5, { message: "Address must be at least 5 characters" }),
+  email: z.string().email({ message: "الرجاء إدخال عنوان بريد إلكتروني صالح" }),
+  phone: z.string().min(11, { message: "يجب أن يتكون رقم الهاتف من 11 رقمًا على الأقل" }),
+  name: z.string().min(2, { message: "يجب أن يتكون الاسم من حرفين على الأقل" }),
+  country: z.string().min(1, { message: "الرجاء تحديد بلد" }),
+  city: z.string().min(1, { message: "الرجاء تحديد مدينة" }),
+  address: z.string().min(5, { message: "يجب أن يتكون العنوان من 5 أحرف على الأقل" }),
   defaultAddress: z.boolean().optional(),
-  paymentMethod: z.string().min(1, { message: "Please select a payment method" }),
+  paymentMethod: z.string().min(1, { message: "الرجاء تحديد طريقة دفع" }),
 })
 
 export default function CheckoutForm() {
@@ -44,32 +44,32 @@ export default function CheckoutForm() {
   const paymentMethods = [
     {
       id: "card",
-      label: "Credit / Debit Card",
+      label: "بطاقة الائتمان / الخصم المباشر",
       img: "/icons/payment/card.png",
     },
     {
       id: "fawry",
-      label: "Fawry",
+      label: "فوري",
       img: "/icons/payment/fawry.png",
     },
     {
       id: "instapay",
-      label: "Insta Pay",
+      label: "انستا باي",
       img: "/icons/payment/instapay.png",
     },
     {
       id: "orange",
-      label: "Orange Money",
+      label: "أورانج كاش",
       img: "/icons/payment/orange-money.png",
     },
     {
       id: "vodafone",
-      label: "Vodafone Cash",
+      label: "فودافون كاش",
       img: "/icons/payment/vodafone.png",
     },
     {
       id: "etisalat",
-      label: "Etisalat Cash",
+      label: "اتصالات كاش",
       img: "/icons/payment/etisalat.png",
     },
   ]
@@ -91,7 +91,7 @@ export default function CheckoutForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           {/* Contact Information */}
           <div>
-            <h1 className="text-3xl fonusert-bold mb-6">Contact</h1>
+            <h1 className="text-3xl fonusert-bold mb-6">الاتصال</h1>
 
             <div className="space-y-6">
               <FormField
@@ -99,7 +99,7 @@ export default function CheckoutForm() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-xl">Email</FormLabel>
+                    <FormLabel className="text-xl">البريد الإلكتروني</FormLabel>
                     <FormControl>
                       <Input placeholder="user@gmail.com" {...field} className="p-4 text-base" />
                     </FormControl>
@@ -113,9 +113,9 @@ export default function CheckoutForm() {
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-xl">Phone number</FormLabel>
+                    <FormLabel className="text-xl">رقم الهاتف</FormLabel>
                     <FormControl>
-                      <Input placeholder="Phone number" {...field} className="p-4 text-base" />
+                      <Input placeholder="رقم الهاتف" {...field} className="p-4 text-base" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -127,9 +127,9 @@ export default function CheckoutForm() {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-xl">Name</FormLabel>
+                    <FormLabel className="text-xl">الاسم</FormLabel>
                     <FormControl>
-                      <Input placeholder="Name" {...field} className="p-4 text-base" />
+                      <Input placeholder="الاسم" {...field} className="p-4 text-base" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -142,7 +142,7 @@ export default function CheckoutForm() {
 
           {/* Shipping Address */}
           <div>
-            <h2 className="text-3xl font-bold mb-6">Shipping address</h2>
+            <h2 className="text-3xl font-bold mb-6">عنوان الشحن</h2>
 
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -151,11 +151,11 @@ export default function CheckoutForm() {
                   name="country"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-xl">Country</FormLabel>
+                      <FormLabel className="text-xl">البلد</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="p-3 text-base">
-                            <SelectValue placeholder="Select a country">
+                            <SelectValue placeholder="اختر دولة">
                               <div className="flex items-center gap-2">
                                 <div className="w-8 h-5 bg-red-600 relative overflow-hidden">
                                   <div className="absolute inset-0 flex flex-col">
@@ -164,7 +164,7 @@ export default function CheckoutForm() {
                                     <div className="h-1/3 bg-black"></div>
                                   </div>
                                 </div>
-                                <span>Egypt</span>
+                                <span>مصر</span>
                               </div>
                             </SelectValue>
                           </SelectTrigger>
@@ -179,11 +179,11 @@ export default function CheckoutForm() {
                                   <div className="h-1/3 bg-black"></div>
                                 </div>
                               </div>
-                              <span>Egypt</span>
+                              <span>مصر</span>
                             </div>
                           </SelectItem>
-                          <SelectItem value="UAE">UAE</SelectItem>
-                          <SelectItem value="Saudi Arabia">Saudi Arabia</SelectItem>
+                          <SelectItem value="UAE">الإمارات</SelectItem>
+                          <SelectItem value="Saudi Arabia">السعودية</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -196,20 +196,20 @@ export default function CheckoutForm() {
                   name="city"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-xl">City</FormLabel>
+                      <FormLabel className="text-xl">المدينة</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger className="p-3 text-base">
-                            <SelectValue placeholder="Select a city" />
+                            <SelectValue placeholder="اختر مدينة" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="Cairo">Cairo</SelectItem>
-                          <SelectItem value="Alexandria">Alexandria</SelectItem>
-                          <SelectItem value="Giza">Giza</SelectItem>
-                          <SelectItem value="Sharm El Sheikh">Sharm El Sheikh</SelectItem>
-                          <SelectItem value="Luxor">Luxor</SelectItem>
-                          <SelectItem value="Aswan">Aswan</SelectItem>
+                          <SelectItem value="Cairo">القاهرة</SelectItem>
+                          <SelectItem value="Alexandria">الإسكندرية</SelectItem>
+                          <SelectItem value="Giza">الجيزة</SelectItem>
+                          <SelectItem value="Sharm El Sheikh">شرم الشيخ</SelectItem>
+                          <SelectItem value="Luxor">الأقصر</SelectItem>
+                          <SelectItem value="Aswan">أسوان</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -223,9 +223,9 @@ export default function CheckoutForm() {
                 name="address"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-xl">Address</FormLabel>
+                    <FormLabel className="text-xl">العنوان</FormLabel>
                     <FormControl>
-                      <Input placeholder="Nasr city" {...field} className="p-4 text-base" />
+                      <Input placeholder="مدينة نصر" {...field} className="p-4 text-base" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -245,7 +245,7 @@ export default function CheckoutForm() {
                       />
                     </FormControl>
                     <div className="space-y-1 leading-none">
-                      <FormLabel className="text-base font-normal">Set as a default shipping address</FormLabel>
+                      <FormLabel className="text-base font-normal">تعيين كعنوان شحن افتراضي</FormLabel>
                     </div>
                   </FormItem>
                 )}
@@ -257,7 +257,7 @@ export default function CheckoutForm() {
 
           {/* Payment */}
           <div>
-            <h2 className="text-3xl font-bold mb-6">Payment</h2>
+            <h2 className="text-3xl font-bold mb-6">الدفع</h2>
 
             <FormField
               control={form.control}
@@ -292,7 +292,7 @@ export default function CheckoutForm() {
           </div>
 
           <Button type="submit" className="w-full py-6 text-lg mt-8" disabled={isSubmitting}>
-            {isSubmitting ? "Processing..." : "Proceed to Checkout"}
+            {isSubmitting ? "جارٍ المتابعة..." : "المتابعة إلى الدفع"}
           </Button>
         </form>
       </Form>

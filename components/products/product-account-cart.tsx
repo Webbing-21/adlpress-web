@@ -46,7 +46,7 @@ export default function ProductAccountCart({
             <p className="ms-1 text-sm  md:text-base font-semibold text-primary">{product?.price}</p>
           </div>
           <Button size={"sm"} className="4xl:h-9 4xl:px-4 4xl:py-2 rounded-full bg-transparent sm:bg-primary md:bg-transparent xl:bg-primary shadow-none">
-            <span className="hidden sm:block md:hidden 4xl:block">Check out</span>
+            <span className="hidden sm:block md:hidden 4xl:block">إتمام الشراء</span>
           </Button>
         </div>
       </div>

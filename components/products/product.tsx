@@ -33,7 +33,7 @@ const ProductCard: React.FC<{ product: Product, isCarousel?:boolean}> = ({
         {product?.discount  && (
           <div className="absolute top-0 end-0 bg-primary rounded-se-md rounded-es-md">
             <p className="text-[10px]  p-1 font-bold uppercase tracking-wide text-white sm:px-3 sm:py-1">
-              {product?.discount}% OFF
+              خصم {product?.discount}%
             </p>
           </div>
         )}

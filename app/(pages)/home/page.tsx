@@ -1,7 +1,6 @@
-import React from 'react'
+"use client";
+import React from "react";
 
-export default function page() {
-  return (
-    <div>page</div>
-  )
+export default function Home() {
+  return <div>مرحبا بك في موقعنا!</div>;
 }

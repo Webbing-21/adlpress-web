@@ -41,8 +41,8 @@ const Carousel = () => {
         </SwiperSlide>
       ))}
       {/* Navigation Buttons */}
-      <div className="swiper-button-prev text-white"></div>
-      <div className="swiper-button-next text-white"></div>
+      <div className="swiper-button-prev text-white" aria-label="السابق"></div>
+      <div className="swiper-button-next text-white" aria-label="التالي"></div>
       {/* Pagination Dots */}
       <div className="swiper-pagination mb-4 [&>*]:!bg-white [&>.active]:!bg-secondary [&>*]:!opacity-100 [&>.active]:!px-2 [&>.active]:!rounded-md"></div>
     </Swiper>

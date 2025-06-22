@@ -138,7 +138,7 @@ export default function ProductsSectionWithSidebar({
               href={linkAll}
               className="flex items-center hover:text-primary text-gray-500"
             >
-              <span>View All</span>
+              <span>عرض الكل</span>
               <svg
                 width="24"
                 height="25"

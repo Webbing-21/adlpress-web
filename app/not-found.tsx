@@ -4,7 +4,7 @@ export default function notFound() {
   return (
     <html>
         <body>
-        not-found
+        الصفحة غير موجودة
         </body>
     </html>
   )

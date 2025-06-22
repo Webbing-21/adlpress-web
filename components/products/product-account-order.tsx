@@ -18,7 +18,7 @@ export default function ProductAccountOrder({
           alt="Product"
         />
         <Badge variant={product.order ? "success" : "error"} className="absolute top-0 end-0 m-2">
-          {product.order ? "Delivered" : "Canceled"}
+          {product.order ? "تم التوصيل" : "ملغى"}
         </Badge>
       </div>
       {/* <div className="absolute top-0 m-2 rounded-full bg-white">
@@ -50,7 +50,7 @@ export default function ProductAccountOrder({
             <p className="ms-1 text-sm  md:text-base font-semibold text-primary">{product.price}</p>
           </div>
           <Button size={"sm"} className="4xl:h-9 4xl:px-4 4xl:py-2 rounded-lg bg-transparent sm:bg-primary md:bg-transparent xl:bg-primary shadow-none">
-            <span className="hidden sm:block md:hidden 4xl:block">Order again</span>
+            <span className="hidden sm:block md:hidden 4xl:block">اطلب مجدداً</span>
           </Button>
         </div>
       </div>

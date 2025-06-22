@@ -15,7 +15,7 @@ export default function ProductAccountLinks() {
           className={`text-nowrap md:text-xl text-start w-full`}
         >
           <span className={pathname.endsWith("account/overview") ? active : ""}>
-            Previous Orders
+            الطلبات السابقة
           </span>
         </LinkApp>
       </div>
@@ -25,7 +25,7 @@ export default function ProductAccountLinks() {
          
           className={`text-nowrap md:text-xl text-center w-full`}
         >
-          <span className={pathname.endsWith("cart") ? active : ""}>Cart</span>
+          <span className={pathname.endsWith("cart") ? active : ""}>السلة</span>
         </LinkApp>
       </div>
       <div className="col-span-1 flex justify-end">
@@ -37,7 +37,7 @@ export default function ProductAccountLinks() {
           `}
         >
           <span className={pathname.endsWith("wishlist") ? active : ""}>
-            Wishlist
+            المفضلة
           </span>
         </LinkApp>
       </div>

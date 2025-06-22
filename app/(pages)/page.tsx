@@ -18,7 +18,7 @@ export default function Page() {
         {/* <SubHeader/> */}
         <HeroSection />
         <div>
-          <CategoriesSection title="Shop From Top Categories" linkAll={`/categories`} isHome />
+          <CategoriesSection title="تسوق من أفضل الفئات" linkAll={`/categories`} isHome />
         </div>
         <div>
           {sectionsTop?.map((section:any, index:any) => (

@@ -6,9 +6,11 @@ const nextConfig = {
   //   // Required: for next 13
   //   appDir: true
   // }
-//   i18n: { 
-// localeDetection:true
-//   },
+  i18n: {
+    locales: ["ar", "en"],
+    defaultLocale: "ar",
+    localeDetection: true
+  },
   images: {
     domains: ["pasteboard.co","images.unsplash.com", "s3-alpha-sig.figma.com", "res.cloudinary.com"]
   }

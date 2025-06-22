@@ -23,10 +23,10 @@ export default function AddToCart({ productDocumentId }: AddToCartProps) {
       };
       await post(payload);
       if (!error) {
-        toast.success("Product added to cart successfully!");
+        toast.success("تمت إضافة المنتج إلى السلة بنجاح!");
       }
     } catch (err) {
-      toast.error("Failed to add product to cart");
+      toast.error("فشل إضافة المنتج إلى السلة");
     }
   };
 

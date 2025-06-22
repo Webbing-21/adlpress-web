@@ -34,7 +34,7 @@ export default function HeaderApp() {
                   className="flex gap-x-2 justify-center items-center py-2"
                 >
                   <UserCircle className="size-8 md:size-5" />
-                  <span className="hidden md:block">Sign in / Sign up</span>
+                  <span className="hidden md:block">تسجيل الدخول / اشتراك</span>
                 </Link>`
               </li>
               <li>
@@ -43,7 +43,7 @@ export default function HeaderApp() {
                   className="flex gap-x-2 justify-center items-center py-2"
                 >
                   <ShoppingCart className="size-8 md:size-5" />
-                  <span className="hidden md:block">Cart</span>
+                  <span className="hidden md:block">السلة</span>
                 </Link>
               </li>
               <li>
@@ -52,7 +52,7 @@ export default function HeaderApp() {
                   className="flex gap-x-2 justify-center items-center py-2"
                 >
                   <Heart className="size-8 md:size-5" />
-                  <span className="hidden md:block">wishlist</span>
+                  <span className="hidden md:block">المفضلة</span>
                 </Link>
               </li>
               <li>

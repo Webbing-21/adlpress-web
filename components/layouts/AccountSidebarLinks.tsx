@@ -12,28 +12,28 @@ export default function AccountSidebarLinks() {
         className={pathname.includes("/account/overview") ? "active" : ""}
       >
         <LinkApp href="/account/overview">
-          Overview
+          نظرة عامة
         </LinkApp>
       </SidebarGroup>
       {/* <SidebarGroup
         className={pathname.includes("/account/purchases") ? "active" : ""}
       >
         <LinkApp href="/account/purchases">
-          Track Purchases
+          تتبع المشتريات
         </LinkApp>
       </SidebarGroup> */}
       <SidebarGroup
         className={pathname.includes("/account/support") ? "active" : ""}
       >
         <LinkApp href="/account/support">
-          Support
+          الدعم
         </LinkApp>
       </SidebarGroup>
       <SidebarGroup
         className={pathname.includes("/account/settings") ? "active" : ""}
       >
         <LinkApp href="/account/settings">
-          Settings
+          الإعدادات
         </LinkApp>
       </SidebarGroup>
     </div>

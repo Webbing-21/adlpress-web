@@ -20,11 +20,11 @@ export default function LoginDialog({ onSwitchToSignup }: { onSwitchToSignup: ()
 
     // Client-side validation
     if (!phone || !password) {
-      setError("Phone number and password are required");
+      setError("رقم الهاتف وكلمة المرور مطلوبان");
       return;
     }
     if (password.length < 8) {
-      setError("Password must be at least 8 characters");
+      setError("يجب أن تكون كلمة المرور 8 أحرف على الأقل");
       return;
     }
 
@@ -43,16 +43,16 @@ export default function LoginDialog({ onSwitchToSignup }: { onSwitchToSignup: ()
         // Parse error message for user-friendly display
         try {
           const errorData = JSON.parse(result.error);
-          setError(errorData.message || "Invalid phone number or password");
+          setError(errorData.message || "رقم الهاتف أو كلمة المرور غير صالحة");
         } catch {
-          setError(result.error || "An unexpected error occurred");
+          setError(result.error || "حدث خطأ غير متوقع");
         }
       } else if (result?.url) {
         // Navigate to the callback URL (e.g., "/")
         router.push(result.url);
       }
     } catch (err) {
-      setError("An unexpected error occurred");
+      setError("حدث خطأ غير متوقع");
     } finally {
       setLoading(false);
     }
@@ -61,12 +61,12 @@ export default function LoginDialog({ onSwitchToSignup }: { onSwitchToSignup: ()
   return (
     <form onSubmit={handleLogin} className="px-6 py-12 flex flex-col items-center">
       <DialogHeader className="mb-8 text-center">
-        <DialogTitle className="text-3xl font-bold">Welcome back!</DialogTitle>
+        <DialogTitle className="text-3xl font-bold">مرحباً بعودتك!</DialogTitle>
       </DialogHeader>
       <div className="w-full space-y-4">
         <div className="space-y-2">
           <Label htmlFor="phone-login" className="text-xl font-medium">
-            Phone number
+            رقم الهاتف
           </Label>
           <div className="flex">
             {/* <div className="flex items-center justify-center px-3 border border-r-0 rounded-l-md bg-muted/50 text-blue-600 font-medium">
@@ -74,7 +74,7 @@ export default function LoginDialog({ onSwitchToSignup }: { onSwitchToSignup: ()
             </div> */}
             <Input
               id="phone-login"
-              placeholder="email"
+              placeholder="البريد الإلكتروني"
               value={phone}
               onChange={(e) => setPhone(e.target.value)} // Allow only digits
               className="rounded-l-none h-14 text-lg text-gray-500"
@@ -83,12 +83,12 @@ export default function LoginDialog({ onSwitchToSignup }: { onSwitchToSignup: ()
         </div>
         <div className="space-y-2">
           <Label htmlFor="password-login" className="text-xl font-medium">
-            Password
+            كلمة المرور
           </Label>
           <Input
             id="password-login"
             type="password"
-            placeholder="Enter password"
+            placeholder="أدخل كلمة المرور"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="h-14 text-lg text-gray-500"
@@ -100,17 +100,17 @@ export default function LoginDialog({ onSwitchToSignup }: { onSwitchToSignup: ()
           disabled={loading}
           className="w-full py-6 bg-yellow-400 hover:bg-yellow-500 text-black font-medium text-lg"
         >
-          {loading ? "Logging in..." : "Log in"}
+          {loading ? "جارٍ تسجيل الدخول..." : "تسجيل الدخول"}
         </Button>
         <div className="text-center pt-4">
           <p className="text-gray-500">
-            Don&apos;t have an account?{" "}
+            ليس لديك حساب؟{" "}
             <button
               type="button"
               onClick={onSwitchToSignup}
               className="text-blue-600 font-medium"
             >
-              Create account
+              إنشاء حساب
             </button>
           </p>
         </div>

@@ -109,19 +109,19 @@ export default function Page() {
     <CartLayout productsInCart={productsInCart}>
       <div className="space-y-4">
         <div className="flex justify-between">
-          <h1 className="text-lg md:text-xl">Shopping Cart</h1>
+          <h1 className="text-lg md:text-xl">سلة التسوق</h1>
           <Button
             disabled={productsInCart.length === 0 || deleteLoading}
             variant={"link"}
             className={`text-red-600 underline`}
             onClick={() => setIsOpenAlert(true)}
           >
-            {selectedItemsCount > 0 ? "Delete Selected" : "Empty Cart"}
+            {selectedItemsCount > 0 ? "حذف المحدد" : "إفراغ السلة"}
           </Button>
         </div>
         <div className="flex gap-x-4 items-center p-4 border border-gray-200">
           <Checkbox checked={selectAll} onCheckedChange={handleSelectAll} />
-          <h3>All Items ({selectedItemsCount})</h3>
+          <h3>كل العناصر ({selectedItemsCount})</h3>
         </div>
         <div>
           <div className="space-y-4">
@@ -146,12 +146,12 @@ export default function Page() {
           setIsOpen={setIsOpenAlert}
           msg={
             selectedItemsCount > 0
-              ? `Are you sure you want to delete ${selectedItemsCount} selected item(s)?`
-              : "Are you sure you want to delete everything in cart?"
+              ? `هل أنت متأكد أنك تريد حذف ${selectedItemsCount} من العناصر المحددة؟`
+              : "هل أنت متأكد أنك تريد حذف كل شيء في السلة؟"
           }
-          text={selectedItemsCount > 0 ? "Delete Selected" : "Empty Cart"}
-          btnText="No, go back"
-          btnText2="Yes, delete"
+          text={selectedItemsCount > 0 ? "حذف المحدد" : "إفراغ السلة"}
+          btnText="لا، العودة"
+          btnText2="نعم، احذف"
           action={handleEmptyCart}
         />
       </div>

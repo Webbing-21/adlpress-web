@@ -49,7 +49,7 @@ export default function ProductPrimary({
           
           <Button size={"sm"} className="4xl:h-9 4xl:px-4 4xl:py-2 rounded-full bg-transparent sm:bg-primary md:bg-transparent xl:bg-primary shadow-none">
             <ShoppingCart className="size-4 text-" />
-            <span className="hidden sm:block md:hidden 4xl:block">Add To Cart</span>
+            <span className="hidden sm:block md:hidden 4xl:block">أضف إلى السلة</span>
           </Button>
         </div>
       </div>

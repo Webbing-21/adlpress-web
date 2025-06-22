@@ -19,19 +19,16 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html>
-      <head />
-      <body>
-        <NextTopLoader color="var(--primary)" />
-        <div className="relative z-[48484817878]">
-          <Toaster />
-          <ToastApp />
-        </div>
-        <HeaderApp />
-        <div className="-mt-4 md:mt-4"></div>
-        {children}
-        <FooterApp />
-      </body>
-    </html>
+    <>
+      <NextTopLoader color="var(--primary)" />
+      <div className="relative z-[48484817878]">
+        <Toaster />
+        <ToastApp />
+      </div>
+      <HeaderApp />
+      <div className="-mt-4 md:mt-4"></div>
+      {children}
+      <FooterApp />
+    </>
   );
 }

@@ -27,17 +27,17 @@ export default function UserDrop({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>حسابي</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <LinkApp href="/account/settings" >
-          <DropdownMenuItem>profile</DropdownMenuItem>
+          <DropdownMenuItem>الملف الشخصي</DropdownMenuItem>
         </LinkApp>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="cursor-pointer"
           onClick={() => signOut({ callbackUrl: "/" })}
         >
-          Logout
+          تسجيل الخروج
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

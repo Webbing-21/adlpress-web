@@ -52,7 +52,7 @@ export default function ChangeDataProfile({
               setDisabled((prev) => !prev)
             }
           >
-            Change
+            تغيير
           </Button>
         ) : (
           <Button
@@ -60,7 +60,7 @@ export default function ChangeDataProfile({
             className="underline"
             onClick={() => changeData(filed)}
           >
-            Save
+            حفظ
           </Button>
         )}
       </div>

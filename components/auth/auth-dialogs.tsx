@@ -31,11 +31,11 @@ export function AuthDialogs({ trigger, defaultOpen = false, open=false }: AuthDi
 
   return (
     <Dialog open={open || isOpen} onOpenChange={open ? undefined : handleOpenChange}>
-      <DialogTrigger asChild>{trigger || <Button>Sign in</Button>}</DialogTrigger>
+      <DialogTrigger asChild>{trigger || <Button>تسجيل الدخول</Button>}</DialogTrigger>
       <DialogContent className="sm:max-w-md p-0 max-h-[90vh] z-[83889383] overflow-y-scroll no-scrollbar gap-0 border rounded-lg">
         <button
           onClick={() => setIsOpen(false)}
-          aria-label="Close dialog"
+          aria-label="إغلاق"
           className="absolute left-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
         >
           <X className="h-6 w-6" />

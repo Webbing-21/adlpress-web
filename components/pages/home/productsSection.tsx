@@ -40,7 +40,7 @@ export default function ProductSection({
               href={linkAll}
               className="flex items-center hover:text-primary text-gray-500"
             >
-              <span>View All</span>
+              <span>عرض الكل</span>
               <IconLeftAndRight className="size-6 text-primary"/>
             </Link>
           </div>

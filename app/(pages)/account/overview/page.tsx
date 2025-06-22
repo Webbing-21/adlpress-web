@@ -105,23 +105,6 @@ const productsData: ProductOrderType[] = [
   order: false},
 ];
 
-export default async function page() {
-  return (
-    <div className="container mx-auto">
-      <div>
-        <div className="mt-5 md:mt-10 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-          {[
-            ...productsData,
-            ...productsData.reverse(),
-            ...productsData.reverse(),
-            ...productsData.reverse(),
-          ].map((item) => (
-            <div key={item.id + Math.random()}>
-              <ProductAccountOrder product={item} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+export default function AccountOverview() {
+  return <div>نظرة عامة على الحساب</div>;
 }

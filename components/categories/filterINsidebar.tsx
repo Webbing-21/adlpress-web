@@ -22,25 +22,25 @@ import { Label } from "@/components/ui/label";
 const items = [
   {
     id: "digital-market",
-    label: "Digital Market",
+    label: "السوق الرقمي",
   },
   {
     id: "hardware-house",
-    label: "Hardware House",
+    label: "بيت الأجهزة",
   },
   {
     id: "gear-group",
-    label: "Gear Group",
+    label: "مجموعة العتاد",
   },
   {
     id: "the-micro",
-    label: "The Micro",
+    label: "المايكرو",
   },
 ] as const;
 
 const FormSchema = z.object({
   items: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "You have to select at least one item.",
+    message: "يجب عليك تحديد عنصر واحد على الأقل.",
   }),
   bestSelling: z.boolean().optional(),
   topRated: z.boolean().optional(),
@@ -68,7 +68,7 @@ export default function FilterINsidebar() {
     console.log(url);
 
     toast({
-      title: "Generated URL:",
+      title: "تم إنشاء الرابط:",
       description: (
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
           <code className="text-white">{url}</code>
@@ -86,7 +86,7 @@ export default function FilterINsidebar() {
           render={() => (
             <FormItem>
               <div className="mb-4">
-                <FormLabel className="text-base font-bold">Sellers</FormLabel>
+                <FormLabel className="text-base font-bold">البائعون</FormLabel>
               </div>
               {items.map((item) => (
                 <FormField
@@ -125,7 +125,7 @@ export default function FilterINsidebar() {
           name="bestSelling"
           render={({ field }) => (
             <div className="flex flex-col items-start gap-3">
-              <Label htmlFor="best-selling" className="font-bold">Best Selling</Label>
+              <Label htmlFor="best-selling" className="font-bold">الأكثر مبيعًا</Label>
               <Switch
                 id="best-selling"
                 checked={field.value}
@@ -139,7 +139,7 @@ export default function FilterINsidebar() {
           name="topRated"
           render={({ field }) => (
             <div className="flex flex-col items-start gap-3">
-              <Label htmlFor="top-rated" className="font-bold">Top-Rated</Label>
+              <Label htmlFor="top-rated" className="font-bold">الأعلى تقييمًا</Label>
               <Switch
                 id="top-rated"
                 checked={field.value}
@@ -148,7 +148,7 @@ export default function FilterINsidebar() {
             </div>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">إرسال</Button>
       </form>
     </Form>
   );

@@ -19,19 +19,19 @@ export function SignupDialog({ onSwitchToLogin }: { onSwitchToLogin: () => void 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!username || !email || !password) {
-      setError("All fields are required");
+      setError("جميع الحقول مطلوبة");
       return;
     }
     if (password.length < 8) {
-      setError("Password must be at least 8 characters");
+      setError("يجب أن تكون كلمة المرور 8 أحرف على الأقل");
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError("Please enter a valid email address");
+      setError("يرجى إدخال عنوان بريد إلكتروني صالح");
       return;
     }
     if (!termsAccepted) {
-      setError("You must agree to the Terms of Service and Privacy Policy");
+      setError("يجب أن توافق على شروط الخدمة وسياسة الخصوصية");
       return;
     }
     setLoading(true);
@@ -50,7 +50,7 @@ export function SignupDialog({ onSwitchToLogin }: { onSwitchToLogin: () => void 
         window.location.reload(); // Redirect on success
       }
     } catch (err) {
-      setError("An unexpected error occurred");
+      setError("حدث خطأ غير متوقع");
     } finally {
       setLoading(false);
     }
@@ -59,16 +59,16 @@ export function SignupDialog({ onSwitchToLogin }: { onSwitchToLogin: () => void 
   return (
     <form onSubmit={handleSignup} className="px-6 py-0 flex flex-col items-center">
       <DialogHeader className="mb-8 text-center pt-5">
-        <DialogTitle className="text-3xl font-bold">Create account</DialogTitle>
+        <DialogTitle className="text-3xl font-bold">إنشاء حساب</DialogTitle>
       </DialogHeader>
       <div className="w-full space-y-4 pb-4">
         <div className="space-y-2">
           <Label htmlFor="username-signup" className="text-xl font-medium">
-            Username
+            اسم المستخدم
           </Label>
           <Input
             id="username-signup"
-            placeholder="Enter username"
+            placeholder="أدخل اسم المستخدم"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className="h-14 text-lg text-gray-500"
@@ -76,12 +76,12 @@ export function SignupDialog({ onSwitchToLogin }: { onSwitchToLogin: () => void 
         </div>
         <div className="space-y-2">
           <Label htmlFor="email-signup" className="text-xl font-medium">
-            Email
+            البريد الإلكتروني
           </Label>
           <Input
             id="email-signup"
             type="email"
-            placeholder="Enter email"
+            placeholder="أدخل البريد الإلكتروني"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="h-14 text-lg text-gray-500"
@@ -89,12 +89,12 @@ export function SignupDialog({ onSwitchToLogin }: { onSwitchToLogin: () => void 
         </div>
         <div className="space-y-2">
           <Label htmlFor="password-signup" className="text-xl font-medium">
-            Password
+            كلمة المرور
           </Label>
           <Input
             id="password-signup"
             type="password"
-            placeholder="Enter password"
+            placeholder="أدخل كلمة المرور"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="h-14 text-lg text-gray-500"
@@ -108,7 +108,7 @@ export function SignupDialog({ onSwitchToLogin }: { onSwitchToLogin: () => void 
             className="mt-1 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
           />
           <Label htmlFor="terms" className="text-sm font-normal">
-            By creating an account, you agree to our Terms of Service and Privacy Policy.
+            بإنشاء حساب، فإنك توافق على شروط الخدمة وسياسة الخصوصية الخاصة بنا.
           </Label>
         </div>
         {error && <p className="text-red-500 text-sm">{error}</p>}
@@ -117,13 +117,13 @@ export function SignupDialog({ onSwitchToLogin }: { onSwitchToLogin: () => void 
           disabled={loading || !termsAccepted}
           className="w-full py-6 bg-yellow-400 hover:bg-yellow-500 text-black font-medium text-lg"
         >
-          {loading ? "Creating account..." : "Create account"}
+          {loading ? "جارٍ إنشاء الحساب..." : "إنشاء حساب"}
         </Button>
         <div className="text-center pt-4">
           <p className="text-gray-500">
-            Already have an account?{" "}
+            لديك حساب بالفعل؟{" "}
             <button type="button" onClick={onSwitchToLogin} className="text-blue-600 font-medium">
-              Log in
+              تسجيل الدخول
             </button>
           </p>
         </div>

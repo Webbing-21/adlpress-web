@@ -106,7 +106,7 @@ const productsData: ProductType[] = [
 ];
 
 
-export default function Page() {
+export default function Wishlist() {
   const [productInWishlist, setProductInWishlist] = useState(productsData);
   const [isOpenAlert, setIsOpenAlert] = useState(false);
 
@@ -115,7 +115,7 @@ export default function Page() {
       <div className="grid grid-cols-3 gap-4 items-center">
         <div className="col-span-1"></div>
         <div className="col-span-1 flex items-center">
-          <h1 className="text-nowrap md:text-xl font-bold text-center w-full">My Wishlist</h1>
+          <h1 className="text-nowrap md:text-xl font-bold text-center w-full">المفضلة</h1>
         </div>
         <div className="col-span-1 flex justify-end">
           <Button
